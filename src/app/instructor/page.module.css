@@ -1,0 +1,107 @@
+/* page.module.css */
+.container {
+    display: flex;
+  }
+  
+  .mainContent {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .search {
+    padding: 15px;
+    width: 200px;
+    border: none;
+    border-radius: 7px;
+    background-color: #f6efef;
+  }
+  
+  
+  .dashboard {
+    margin-top: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .dash {
+    background-color: #3055f6;
+    color: white;
+    padding: 15px 10px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .dashb {
+    background-color: #f44336;
+    color: white;
+    padding: 15px 15px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dash:hover,
+  .dashb:hover {
+    opacity: 0.8;
+  }
+  
+  .addForm input {
+    margin: 5px;
+    padding: 12px;
+    width: 200px;
+    border: none;
+    color: #000000;
+    background-color: #f2eaea;
+    border-radius: 7px;
+  }
+  
+  .addButton {
+    padding: 10px 20px;
+    background-color: #068334;
+    border-radius: 7px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .addButton:hover {
+    opacity: 0.8;
+  }
+  /* Style the toggle button (show/hide) */
+  .toggleButton {
+    display: flex;
+    justify-content: flex-end;  /* Aligns horizontally to the right */
+    align-items: flex-end;        /* Vertically centers the content */
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background-color: #068334;
+    border-radius: 7px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  
+  .toggleButton:hover {
+    opacity: 0.8;
+  }
+  
