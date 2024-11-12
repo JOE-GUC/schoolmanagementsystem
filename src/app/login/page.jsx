@@ -1,4 +1,4 @@
-"use client";
+'use client';
 // import Navbar from '@/components/Navbar/Navbar';
 import React, { useState } from 'react';
 import styles from './page.module.css';

@@ -66,12 +66,12 @@ const Dashboard = () => {
     );
 
     if (courseToEnroll) {
-      const updatedCourse = { 
-        ...courseToEnroll, 
+      const updatedCourse = {
+        ...courseToEnroll,
         students: [
-          ...courseToEnroll.students, 
+          ...courseToEnroll.students,
           { name: studentName, email: studentEmail },
-        ], 
+        ],
       };
 
       setCourses((prevCourses) =>
@@ -118,7 +118,7 @@ const Dashboard = () => {
           {/* <button className={styles.toggleButton} onClick={toggleCourseFormVisibility}>
             {isCourseFormVisible ? 'Enroll' : 'Enroll'}
           </button> */}
-          
+
           {isCourseFormVisible && (
             <form onSubmit={handleAddCourse} className={styles.addForm}>
               <input
@@ -146,13 +146,15 @@ const Dashboard = () => {
                 required
               />
 
-                type="text"              <input
+              <input
+                type="text"
                 name="duration"
                 placeholder="Duration"
                 value={newCourse.duration}
                 onChange={handleCourseInputChange}
                 required
               />
+
               <button type="submit" className={styles.addButton}>
                 Enroll
               </button>
@@ -180,7 +182,7 @@ const Dashboard = () => {
                   <td>
                     <button
                       className={styles.dash}
-                          onClick={toggleCourseFormVisibility}
+                      onClick={toggleCourseFormVisibility}
                     >
                       <i className="fa fa-user-plus" aria-hidden="true"></i> Enroll
                     </button>
