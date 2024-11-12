@@ -33,7 +33,6 @@ const Dashboard = () => {
 
   // Step 4: State to control visibility of the form
   const [isCourseFormVisible, setIsCourseFormVisible] = useState(false);
-  const [isEnrollFormVisible, setIsEnrollFormVisible] = useState(false);
 
   // Handle input changes for adding a course
   const handleCourseInputChange = (e) => {
@@ -55,34 +54,6 @@ const Dashboard = () => {
     setIsCourseFormVisible(false); // Hide the form after adding the course
   };
 
-  // Handle enrolling a student into a course
-  const handleEnrollStudent = (e) => {
-    e.preventDefault();
-    const { studentName, studentEmail, courseTeacherId } = enrolledStudent;
-
-    // Find the course by teacherId (unique ID for the course)
-    const courseToEnroll = courses.find(
-      (course) => course.teacherId === courseTeacherId
-    );
-
-    if (courseToEnroll) {
-      const updatedCourse = {
-        ...courseToEnroll,
-        students: [
-          ...courseToEnroll.students,
-          { name: studentName, email: studentEmail },
-        ],
-      };
-
-      setCourses((prevCourses) =>
-        prevCourses.map((course) =>
-          course.teacherId === courseTeacherId ? updatedCourse : course
-        )
-      );
-      setEnrolledStudent({ studentName: '', studentEmail: '', courseTeacherId: '' });
-      setIsEnrollFormVisible(false); // Hide the form after enrollment
-    }
-  };
 
   // Handle deleting a course
   const handleDeleteCourse = (teacherId) => {
@@ -96,11 +67,7 @@ const Dashboard = () => {
     setIsCourseFormVisible((prev) => !prev);
   };
 
-  // Toggle the visibility of enrollment form
-  const toggleEnrollFormVisibility = (teacherId) => {
-    setEnrolledStudent({ ...enrolledStudent, courseTeacherId: teacherId });
-    setIsEnrollFormVisible((prev) => !prev);
-  };
+
 
   return (
     <div className={styles.container}>
@@ -114,10 +81,7 @@ const Dashboard = () => {
         <div className={styles.dashboard}>
           <h2>Courses</h2>
 
-          {/* Toggle Button for Adding Courses */}
-          {/* <button className={styles.toggleButton} onClick={toggleCourseFormVisibility}>
-            {isCourseFormVisible ? 'Enroll' : 'Enroll'}
-          </button> */}
+      
 
           {isCourseFormVisible && (
             <form onSubmit={handleAddCourse} className={styles.addForm}>

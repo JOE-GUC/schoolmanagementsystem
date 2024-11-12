@@ -1,70 +1,106 @@
-'use client';
-import React, { useState } from 'react';
-import styles from './page.module.css';
-import Link from 'next/link';  // Import Link from next/link
+"use client";
+import React, { useState } from "react";
+import style from './page.module.css';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function Page() {
+function Page() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(""); // Reset error message before each attempt
+    const userData = {
+      email,
+      password,
+    };
+
+    console.log("Sending data:", userData); // Debug log
+
+    try {
+      const response = await fetch("http://localhost:3001/auth/login", {  // Confirm the URL and port
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await response.json();
+      console.log("Response data:", data); 
+
+      if (response.ok) {
+        if (data.token) {
+          localStorage.setItem("token", data.token); 
+          router.push("/admindashboard"); 
+        }
+      } else {
+        setError(data.message || "Login failed. Please check your credentials.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setError("An error occurred. Please try again later.");
+    }
+  };
+
   return (
-    <>
-      {/* <Navbar /> */}
-      <div>
-        <div className={styles.logincontainer}>
-          <h2>Log In</h2>
-          <form>
-            <div className={styles.inputContainer}>
-              <i className="fa fa-user" aria-hidden="true"></i>
+    <section className={style.form}>
+      <div className={style.left}></div>
+      <div className={style.right}>
+        <div className={style.con}>
+          <h2>Login</h2>
+          <p>Welcome Back</p>
+          <form onSubmit={handleSubmit}>
+            <div className={style.inputContainer}>
+              <i className="fa-regular fa-envelope" aria-hidden="true"></i>
               <input
-                type="text"
-                name="name"
-                placeholder="Name"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
-                className={styles.inputstyle}
               />
             </div>
-            <div className={styles.inputContainer}>
+            <div className={style.inputContainer}>
               <i className="fa fa-lock" aria-hidden="true"></i>
               <input
-                type={showPassword ? 'text' : 'password'}
-                name="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
-                className={styles.inputstyle}
-              />
+                />
               <i
-                className={`fa ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}
+                className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
                 aria-hidden="true"
                 onClick={togglePasswordVisibility}
-                style={{
-                  position: 'absolute',
-                  right: '10px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  cursor: 'pointer',
-                  color: '#33333372',
-                }}
               ></i>
             </div>
-            <button
-              type="submit"
-              style={{ backgroundColor: 'skyblue', color: 'white' }}
-              className={styles.buttonstyle}
-            >
-              LOG IN
-            </button>
+            <button type="submit">Login</button>
+            {error && <p className={style.error}>{error}</p>}
           </form>
-
-          {/* Updated Link to use Next.js routing */}
-          <Link href="#" className={styles.forgotPassword}>
-            Forgot password?
-          </Link>
+          <div className={style.forgot}>
+            <Link href={"/forgotpassword"}>Forgot Password?</Link>
+          </div>
+          <div className={style.bot}>
+            <p>Or login with</p>
+            <div className={style.exist}>
+              <p>Don&#39;t have an account yet?</p>
+              <Link href={"/register"}>Sign Up</Link>
+            </div>
+          </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }
+
+export default Page;
