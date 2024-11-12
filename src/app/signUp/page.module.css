@@ -1,0 +1,125 @@
+/* General layout for the entire form */
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7fc;
+  }
+  
+  /* Left section (can be used for branding or background image) */
+  .left {
+    flex: 1;
+    background: linear-gradient(to right, #4c8bf5, #1e4d93);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Right section where the form will be */
+  .right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  /* Container for the form elements */
+  .con {
+    max-width: 450px;
+    width: 100%;
+  }
+  
+  /* Input container for each form field */
+  .inputContainer {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .inputContainer input {
+    width: 100%;
+    padding: 15px;
+    padding-left: 40px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    outline: none;
+  }
+  
+  .inputContainer input:focus {
+    border-color: #4c8bf5;
+  }
+  
+  .inputContainer i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #888;
+  }
+  
+  /* Styling the password visibility icon */
+  .inputContainer i.fa-eye,
+  .inputContainer i.fa-eye-slash {
+    cursor: pointer;
+  }
+  
+
+  /* Error message */
+  .error {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  /* Bottom section with 'Do you have an account' link */
+  .bot {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .bot p {
+    color: #777;
+    font-size: 14px;
+  }
+  
+  .exist {
+    margin-top: 10px;
+  }
+  
+  .exist a {
+    color: #4c8bf5;
+    font-size: 16px;
+    text-decoration: none;
+  }
+  
+  .exist a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Media query for responsive design */
+  @media screen and (max-width: 768px) {
+    .form {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .left, .right {
+      width: 100%;
+      height: auto;
+    }
+  
+    .con {
+      padding: 20px;
+      width: 90%;
+    }
+  }
+  

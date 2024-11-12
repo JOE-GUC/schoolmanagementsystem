@@ -1,74 +1,63 @@
-'use client'
+'use client';
+
 import { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 import styles from './page.module.css';
 
 const Dashboard = () => {
-  // Step 1: State to manage student data
-  const [students, setStudents] = useState([
+  // Step 1: State to manage course data
+  const [courses, setCourses] = useState([
     {
-      name: 'John Doe',
-      studentId: '30293jhim482cjc', // Unique ID for the student
-      courses: 'Math 101',
-      email: 'john@example.com',
-      enrollDate: '11/11/2024', // Default date
+      name: 'Math 101',
+      teacherId: '30293jhim482cjc',
+      instructor: 'John Doe',
+      duration: '3 months',
+      students: [], // List of students enrolled in the course
     },
-    // Other students can be added here as default data
+    // You can add other courses here as default data
   ]);
 
-  // Step 2: State to handle adding a new student
-  const [newStudent, setNewStudent] = useState({
+  // Step 2: State to handle adding a new course
+  const [newCourse, setNewCourse] = useState({
     name: '',
-    studentId: '', // Will be generated when added
-    courses: '',
-    email: '',
-    enrollDate: '', // Will be set to today's date when added
+    teacherId: '',
+    instructor: '',
+    duration: '',
   });
 
-  // Step 3: State to control visibility of the form
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  // Step 4: State to control visibility of the form
+  const [isCourseFormVisible, setIsCourseFormVisible] = useState(false);
 
-  // Handle input changes for the form
-  const handleInputChange = (e) => {
+  // Handle input changes for adding a course
+  const handleCourseInputChange = (e) => {
     const { name, value } = e.target;
-    setNewStudent((prev) => ({
+    setNewCourse((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  // Handle adding a new student
-  const handleAddStudent = (e) => {
+  // Handle adding a new course
+  const handleAddCourse = (e) => {
     e.preventDefault();
-    const currentDate = new Date().toLocaleDateString(); // Get today's date
-    const newStudentWithId = {
-      ...newStudent,
-      studentId: `STU${Date.now()}`, // Generate unique student ID using timestamp
-      enrollDate: currentDate, // Set the current date as enroll date
-    };
-
-    setStudents((prevStudents) => [...prevStudents, newStudentWithId]);
-    setNewStudent({ name: '', studentId: '', courses: '', email: '', enrollDate: '' });
-    setIsFormVisible(false); // Hide the form after adding the student
+    setCourses((prevCourses) => [
+      ...prevCourses,
+      { ...newCourse, students: [] }, // Initialize with empty student list
+    ]);
+    setNewCourse({ name: '', teacherId: '', instructor: '', duration: '' });
+    setIsCourseFormVisible(false); // Hide the form after adding the course
   };
 
-  // Handle deleting a student
-  const handleDeleteStudent = (studentId) => {
-    setStudents((prevStudents) =>
-      prevStudents.filter((student) => student.studentId !== studentId)
+  // Handle deleting a course
+  const handleDeleteCourse = (teacherId) => {
+    setCourses((prevCourses) =>
+      prevCourses.filter((course) => course.teacherId !== teacherId)
     );
   };
 
-  // Handle copying the student ID to clipboard
-  const handleCopyStudentId = (studentId) => {
-    navigator.clipboard.writeText(studentId).then(() => {
-      alert('Student ID copied to clipboard!');
-    });
-  };
-
-  // Toggle form visibility
-  const toggleFormVisibility = () => {
-    setIsFormVisible((prev) => !prev);
+  // Toggle the visibility of course form
+  const toggleCourseFormVisibility = () => {
+    setIsCourseFormVisible((prev) => !prev);
   };
 
   return (
@@ -76,84 +65,83 @@ const Dashboard = () => {
       <Sidebar />
       <div className={styles.mainContent}>
         <header className={styles.header}>
-          <h1>Course Management System</h1>
+          <h1>School Management System</h1>
           <input type="text" className={styles.search} placeholder="Search..." />
         </header>
 
         <div className={styles.dashboard}>
-          <h2>Students</h2>
+          <h2>Courses</h2>
 
-          {/* Toggle Button */}
-          <button className={styles.toggleButton} onClick={toggleFormVisibility}>
-            {isFormVisible ? 'Close Form' : 'Add Student'}
-          </button>
-
-          {/* Conditionally render the form */}
-          {isFormVisible && (
-            <form onSubmit={handleAddStudent} className={styles.addForm}>
+          {isCourseFormVisible && (
+            <form onSubmit={handleAddCourse} className={styles.addForm}>
               <input
                 type="text"
                 name="name"
-                placeholder="Name"
-                value={newStudent.name}
-                onChange={handleInputChange}
+                placeholder="Course Name"
+                value={newCourse.name}
+                onChange={handleCourseInputChange}
                 required
               />
               <input
                 type="text"
-                name="courses"
-                placeholder="Courses"
-                value={newStudent.courses}
-                onChange={handleInputChange}
+                name="teacherId"
+                placeholder="Teacher ID"
+                value={newCourse.teacherId}
+                onChange={handleCourseInputChange}
                 required
               />
               <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={newStudent.email}
-                onChange={handleInputChange}
+                type="text"
+                name="instructor"
+                placeholder="Instructor Name"
+                value={newCourse.instructor}
+                onChange={handleCourseInputChange}
                 required
               />
+
+              <input
+                type="text"
+                name="duration"
+                placeholder="Duration"
+                value={newCourse.duration}
+                onChange={handleCourseInputChange}
+                required
+              />
+
               <button type="submit" className={styles.addButton}>
-                Add Student
+                Enroll
               </button>
             </form>
           )}
 
-          {/* Table displaying the students */}
+          {/* Courses Table */}
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Profile</th>
-                <th>StudentID</th>
-                <th>Enroll Date</th>
                 <th>Course</th>
-                <th>Email</th>
+                <th>Instructor</th>
+                <th>Duration</th>
+                <th>Enrolled Students</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {students.map((student) => (
-                <tr key={student.studentId}>
-                  <td>{student.name}</td>
-                  <td>{student.studentId}</td>
-                  <td>{student.enrollDate}</td>
-                  <td>{student.courses}</td>
-                  <td>{student.email}</td>
+              {courses.map((course) => (
+                <tr key={course.teacherId}>
+                  <td>{course.name}</td>
+                  <td>{course.instructor}</td>
+                  <td>{course.duration}</td>
+                  <td>{course.students.length}</td>
                   <td>
-                    {/* Copy Instructor ID Button with Icon */}
                     <button
                       className={styles.dash}
-                      onClick={() => handleCopyStudentId(student.studentId)}
+                      onClick={toggleCourseFormVisibility}
                     >
-                      <i className="fa fa-copy" aria-hidden="true"></i> Copy ID
+                      <i className="fa fa-user-plus" aria-hidden="true"></i> Enroll
                     </button>
-
-                    {/* Delete Instructor Button with Icon */}
                     <button
                       className={styles.dashb}
-                      onClick={() => handleDeleteStudent(student.studentId)}
+                      onClick={() => handleDeleteCourse(course.teacherId)}
                     >
                       <i className="fa fa-trash" aria-hidden="true"></i> Delete
                     </button>

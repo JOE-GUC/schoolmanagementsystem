@@ -26,7 +26,7 @@ function Page() {
     console.log("Sending data:", userData); // Debug log
 
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {  // Confirm the URL and port
+      const response = await fetch("https://schoolmanagemantsystemdb.onrender.com/auth/login", {  // Confirm the URL and port
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,12 +35,16 @@ function Page() {
       });
 
       const data = await response.json();
-      console.log("Response data:", data); 
+      console.log("Response data:", data);
 
       if (response.ok) {
         if (data.token) {
+          // Assuming the API provides a token if login is successful
           localStorage.setItem("token", data.token); 
-          router.push("/admindashboard"); 
+          // Redirect to admin dashboard
+          router.push("/instructor");
+        } else {
+          setError("Login failed. Invalid credentials.");
         }
       } else {
         setError(data.message || "Login failed. Please check your credentials.");
@@ -77,7 +81,7 @@ function Page() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                />
+              />
               <i
                 className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
                 aria-hidden="true"

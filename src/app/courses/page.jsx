@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 import styles from './page.module.css';
@@ -24,7 +25,6 @@ const Dashboard = () => {
     duration: '',
   });
 
-
   // Step 4: State to control visibility of the form
   const [isCourseFormVisible, setIsCourseFormVisible] = useState(false);
 
@@ -48,7 +48,6 @@ const Dashboard = () => {
     setIsCourseFormVisible(false); // Hide the form after adding the course
   };
 
-
   // Handle deleting a course
   const handleDeleteCourse = (teacherId) => {
     setCourses((prevCourses) =>
@@ -61,21 +60,17 @@ const Dashboard = () => {
     setIsCourseFormVisible((prev) => !prev);
   };
 
-
-
   return (
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.mainContent}>
         <header className={styles.header}>
-          <h1>Course Management System</h1>
+          <h1>School Management System</h1>
           <input type="text" className={styles.search} placeholder="Search..." />
         </header>
 
         <div className={styles.dashboard}>
           <h2>Courses</h2>
-
-      
 
           {isCourseFormVisible && (
             <form onSubmit={handleAddCourse} className={styles.addForm}>

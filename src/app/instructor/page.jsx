@@ -1,5 +1,7 @@
-'use client'
+'use client';
+
 import { useState } from 'react';
+import { toast } from 'sonner'; // Importing the toast function from Sonner
 import Sidebar from '../../components/Sidebar';
 import styles from './page.module.css';
 
@@ -42,18 +44,25 @@ const Dashboard = () => {
     ]);
     setNewInstructor({ name: '', teacherId: '', courses: '', email: '' });
     setIsFormVisible(false); // Hide the form after adding an instructor
+
+    // Show a success notification after adding the instructor
+    toast.success('Instructor added successfully!');
   };
 
   const handleDeleteInstructor = (teacherId) => {
     setInstructors((prevInstructors) =>
       prevInstructors.filter((instructor) => instructor.teacherId !== teacherId)
     );
+    
+    // Show a success notification after deleting the instructor
+    toast.success('Instructor deleted successfully!');
   };
 
   const handleCopyInstructorId = (teacherId) => {
     navigator.clipboard.writeText(teacherId).then(() => {
-      alert('Instructor ID copied to clipboard!');
+      // Show a success notification after copying the ID
     });
+    toast.success('Instructor ID copied to clipboard!');
   };
 
   // Step 4: Toggle form visibility
@@ -66,7 +75,7 @@ const Dashboard = () => {
       <Sidebar />
       <div className={styles.mainContent}>
         <header className={styles.header}>
-          <h1>Course Management System</h1>
+          <h1>School Management System</h1>
           <input type="text" className={styles.search} placeholder="Search..." />
         </header>
 
@@ -75,7 +84,7 @@ const Dashboard = () => {
 
           {/* Toggle Button */}
           <button className={styles.toggleButton} onClick={toggleFormVisibility}>
-            {isFormVisible ? 'Add user' : 'Add user'}
+            {isFormVisible ? 'Close Form' : 'Add Instructor'}
           </button>
 
           {/* Conditionally render the form */}
@@ -92,7 +101,7 @@ const Dashboard = () => {
               <input
                 type="text"
                 name="teacherId"
-                placeholder="TeacherID"
+                placeholder="Teacher ID"
                 value={newInstructor.teacherId}
                 onChange={handleInputChange}
                 required
@@ -124,7 +133,7 @@ const Dashboard = () => {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>TeacherID</th>
+                <th>Teacher ID</th>
                 <th>Courses</th>
                 <th>Email</th>
                 <th>Actions</th>
@@ -160,6 +169,9 @@ const Dashboard = () => {
           </table>
         </div>
       </div>
+
+      {/* Sonner Toast container */}
+      {/* Toast container is automatically handled by Sonner when you use `toast.success` */}
     </div>
   );
 };

@@ -105,3 +105,11 @@
     opacity: 0.8;
   }
   
+  /* i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #888;
+  } */
