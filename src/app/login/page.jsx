@@ -98,7 +98,7 @@ function Page() {
             <p>Or login with</p>
             <div className={style.exist}>
               <p>Don&#39;t have an account yet?</p>
-              <Link href={"/register"}>Sign Up</Link>
+              <Link href={"/signUp"}>Sign Up</Link>
             </div>
           </div>
         </div>
