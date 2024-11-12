@@ -1,8 +1,7 @@
 'use client';
-// import Navbar from '@/components/Navbar/Navbar';
 import React, { useState } from 'react';
 import styles from './page.module.css';
-import Link from 'next/link';
+import Link from 'next/link';  // Import Link from next/link
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +11,6 @@ export default function Page() {
   };
 
   return (
-    
     <>
       {/* <Navbar /> */}
       <div>
@@ -21,19 +19,25 @@ export default function Page() {
           <form>
             <div className={styles.inputContainer}>
               <i className="fa fa-user" aria-hidden="true"></i>
-              <input type="text" name="name" placeholder='Name' required className={styles.inputstyle} />
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+                className={styles.inputstyle}
+              />
             </div>
             <div className={styles.inputContainer}>
               <i className="fa fa-lock" aria-hidden="true"></i>
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
-                placeholder='Password'
+                placeholder="Password"
                 required
                 className={styles.inputstyle}
               />
               <i
-                className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}
+                className={`fa ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}
                 aria-hidden="true"
                 onClick={togglePasswordVisibility}
                 style={{
@@ -46,9 +50,19 @@ export default function Page() {
                 }}
               ></i>
             </div>
-            <button type="submit" style={{ backgroundColor: 'skyblue', color: 'white' }} className={styles.buttonstyle}>LOG IN</button>
+            <button
+              type="submit"
+              style={{ backgroundColor: 'skyblue', color: 'white' }}
+              className={styles.buttonstyle}
+            >
+              LOG IN
+            </button>
           </form>
-          <a href="#">Forgot password?</a>
+
+          {/* Updated Link to use Next.js routing */}
+          <Link href="#" className={styles.forgotPassword}>
+            Forgot password?
+          </Link>
         </div>
       </div>
     </>
