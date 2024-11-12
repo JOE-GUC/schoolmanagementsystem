@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import style from './page.module.css';
 import Link from "next/link";
 import { toast } from "sonner";
+import { useRouter } from "next/router";
 
 function Page() {
   const [showPassword, setShowPassword] = useState(false);
