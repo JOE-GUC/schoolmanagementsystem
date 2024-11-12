@@ -24,12 +24,12 @@ const Dashboard = () => {
     duration: '',
   });
 
-  // Step 3: State to handle course enrollment
-  const [enrolledStudent, setEnrolledStudent] = useState({
-    studentName: '',
-    studentEmail: '',
-    courseTeacherId: '', // Associate student with a course
-  });
+  // // Step 3: State to handle course enrollment
+  // const [enrolledStudent, setEnrolledStudent] = useState({
+  //   studentName: '',
+  //   studentEmail: '',
+  //   courseTeacherId: '', // Associate student with a course
+  // });
 
   // Step 4: State to control visibility of the form
   const [isCourseFormVisible, setIsCourseFormVisible] = useState(false);
