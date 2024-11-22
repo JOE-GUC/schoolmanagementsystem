@@ -1,6 +1,7 @@
 "use client";
+
 import React, { useState } from "react";
-import style from './page.module.css';
+import style from "./page.module.css";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -14,9 +15,6 @@ function Page() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-
-  // Initialize toast instance
-  
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -32,27 +30,34 @@ function Page() {
     }
 
     try {
-      const res = await fetch("https://schoolmanagemantsystemdb.onrender.com/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ 
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          password,
-          password_confirm: confirmPassword,
-        }),
-      });
+      const res = await fetch(
+        "https://schoolmanagemantsystemdb.onrender.com/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            password,
+            password_confirm: confirmPassword,
+          }),
+        }
+      );
 
       const result = await res.json();
       if (res.ok) {
+        // Save the token or user data
+        localStorage.setItem("token", result.token); // Assuming the API returns a token
+        localStorage.setItem("user", JSON.stringify(result.user)); // Save user info if provided
+
         toast.success("Registration successful!");
-        router.push("/login");
+        router.push("/dashboard"); // Redirect to dashboard
       } else {
         setError(result.message || "Registration failed. Please try again.");
-        toast.error("Registration failed. Please try again.");
+        toast.error(result.message || "Registration failed. Please try again.");
       }
     } catch (error) {
       console.error("An error occurred:", error);
@@ -131,7 +136,7 @@ function Page() {
                 style={{ cursor: "pointer" }}
               ></i>
             </div>
-            <button type="submit">Register</button>
+            <button  className={style.bton} type="submit">Register</button>
             {error && <p className={style.error}>{error}</p>}
           </form>
           <div className={style.bot}>

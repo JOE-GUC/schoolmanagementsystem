@@ -88,7 +88,7 @@ function Page() {
                 onClick={togglePasswordVisibility}
               ></i>
             </div>
-            <button type="submit">Login</button>
+            <button className={style.bton} type="submit">Login</button>
             {error && <p className={style.error}>{error}</p>}
           </form>
           <div className={style.forgot}>

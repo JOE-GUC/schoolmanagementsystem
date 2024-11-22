@@ -1,7 +1,22 @@
+"use client"; // Marks this file as a client component
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Correct import for `app` directory
 import Sidebar from '../../components/Sidebar';
 import styles from './page.module.css';
 
 const Dashboard = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Simulated authentication check
+    const isAuthenticated = localStorage.getItem('user'); // Or use your auth method
+
+    if (!isAuthenticated) {
+      router.push('/login'); // Redirect to login if not authenticated
+    }
+  }, [router]);
+
   return (
     <div className={styles.container}>
       <Sidebar />
